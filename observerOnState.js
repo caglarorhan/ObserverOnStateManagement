@@ -25,9 +25,10 @@ function observerOnState(targetObject){
     }
 }
 
-const state ={userInfo:{hair:'long', eye: 'brown', beard:{type:'goat', length:{inch:2}}, category:{face:'Johny', mustache:{tip:'Texan', length:22}}}};
+const state ={userInfo:{hair:'long', eye: 'brown', beard:{type:'goat', length:{inch:2}}, category:{face:'Johny', mustache:{tip:'Texan', length:22}}}}; //create state or empty state
 
-observerOnState(state);
-state.userInfo.category.mustache.subscribeMe('Berberler');
-console.log(JSON.stringify(state));
-state.userInfo.category.mustache.tmp={tip:'Mexican', length:22};
+observerOnState(state); // initiate setter
+state.userInfo.category.mustache.subscribeMe('Barbers'); // Manage the subscription with subscribeMe and unSubscribeMe methods
+state.userInfo.category.mustache.tmp={tip:'Mexican', length:22}; // use tmp trigger method to update a property
+state.userInfo.category.mustache.tmp={tip:'Mexican', length:22, color:'red'}; //use tmp trigger method to update a property
+
