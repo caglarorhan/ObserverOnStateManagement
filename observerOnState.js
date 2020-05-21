@@ -18,16 +18,10 @@ function objectReMake(targetObject){
                     let key = entry[0];
                     let value = entry[1];
                     targetObject[key]=value;
-                    // console.log(`
-                    // KEY: ${key}
-                    // VALUE: ${value}
-                    // `);
                     if(typeof value==='object'){
                         objectReMake(value);
                     }
-                    //console.log('Data changed/updated')// We can use triggers here
-
-                });
+                 });
                 if(targetObject.subsList){
                     targetObject.subsList.forEach((item)=>{
                         console.log(`Publish to: ${item}`);// publisher comes to here
@@ -39,28 +33,12 @@ function objectReMake(targetObject){
 }
 
 //console.log(state);
-objectReMake(state); //to initiate setter
-//console.log(state);
+objectReMake(state); //to initiate setter and other methods
 state.tempProp={userInfo:{hair:'long', eye:'brown'}}; // tempProp is to trigging property change mechanism (setter)
 state.userInfo.tempProp={hair:'long', eye:'blue'}
-//state.userInfo.subsList.push('uyeler'); //subscribe method, subscribing to userInfo with uyeler name
-//console.log(state);
-state.userInfo.tempProp={hair:'long', eye: 'brown', beard:{type:'goat', length:{inch:2}}};
+state.userInfo.tempProp={hair:'long', eye: 'brown', beard:{type:'goat', length:{inch:2}}, category:{hair:'Johny', mustache:{type:'Texan', length:22}}};
+// did not add subList into length property depth after 2 child is not affected
+//state.userInfo.category.tempProp = {hair:'Johny', mustache:'Texas', eyebrows:'Mellow'}
 console.log(JSON.stringify(state));
-state.userInfo.beard.subscribeMe('berberler');
-state.userInfo.beard.tempProp = {type:'goat', length:{inch:2, cm:6}};
-state.userInfo.beard.length.subscribeMe('Stylist');
-state.userInfo.beard.length.tempProp = {inch:2, cm:6, mt:0.06};
-console.log(JSON.stringify(state));
-
-
-
-
-state.userInfo.beard.subscribeMe('Kuaforler');
-state.userInfo.beard.subscribeMe('Bakkallar');
-state.userInfo.beard.tempProp = {type:'goat', length:{inch:2, cm:6}};
-console.log('-------------')
-state.userInfo.beard.unSubscribeMe('Bakkallar');
-state.userInfo.beard.tempProp = {type:'goat', length:{inch:2, cm:7}};
 
 
