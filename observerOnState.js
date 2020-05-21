@@ -2,7 +2,16 @@ const state = {};
 
 function objectReMake(targetObject){
     if(typeof targetObject === 'object'){
-        if(!targetObject.subsList){targetObject["subsList"]=[]; targetObject["subscribeMe"]= function(subs){this.subsList.push(subs); return true;}}
+        if(!targetObject.subsList){
+            targetObject["subsList"]=[];
+            targetObject["subscribeMe"]= function(subs){this.subsList.push(subs); return true;}
+            targetObject["unSubscribeMe"] = function(subs){
+                while(this.subsList.indexOf(subs)>-1){
+                    this.subsList.splice(this.subsList.indexOf(subs),1)
+                }
+                return true;
+            }
+        }
         Object.defineProperty(targetObject,'tempProp',{
             set(updatedData){
                 Object.entries(updatedData).forEach((entry)=>{
@@ -43,3 +52,15 @@ state.userInfo.beard.tempProp = {type:'goat', length:{inch:2, cm:6}};
 state.userInfo.beard.length.subscribeMe('Stylist');
 state.userInfo.beard.length.tempProp = {inch:2, cm:6, mt:0.06};
 console.log(JSON.stringify(state));
+
+
+
+
+state.userInfo.beard.subscribeMe('Kuaforler');
+state.userInfo.beard.subscribeMe('Bakkallar');
+state.userInfo.beard.tempProp = {type:'goat', length:{inch:2, cm:6}};
+console.log('-------------')
+state.userInfo.beard.unSubscribeMe('Bakkallar');
+state.userInfo.beard.tempProp = {type:'goat', length:{inch:2, cm:7}};
+
+
